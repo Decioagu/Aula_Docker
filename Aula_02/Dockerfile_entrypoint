@@ -1,0 +1,5 @@
+FROM ubuntu
+LABEL exemplo="Só ENTRYPOINT"
+
+# ENTRYPOINT fixa o comando
+ENTRYPOINT ["echo", "Olá, eu sou o ENTRYPOINT"]

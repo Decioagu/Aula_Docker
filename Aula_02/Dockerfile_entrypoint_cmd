@@ -1,0 +1,8 @@
+FROM ubuntu
+LABEL exemplo="ENTRYPOINT + CMD"
+
+# ENTRYPOINT define o programa
+ENTRYPOINT ["echo"]
+
+# CMD define o argumento padrão
+CMD ["Olá, eu sou o CMD (argumento do ENTRYPOINT)"]

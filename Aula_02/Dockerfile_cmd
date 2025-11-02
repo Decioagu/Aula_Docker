@@ -1,0 +1,5 @@
+FROM ubuntu
+LABEL exemplo="Só CMD"
+
+# Só um comando padrão
+CMD ["echo", "Olá, eu sou o CMD"]
