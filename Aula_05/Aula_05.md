@@ -3,14 +3,14 @@
 
 Criação de Volume com banco de dados MySQL.
 
-**Criados Volume Docker:**
-
-- docker volume create volume_mysql_aula_05
-
+### **Criados Volume Docker:**
+````
+docker volume create volume_mysql_aula_05
+````
 -----------------------------------------------------------------------------------------------------------
 
-**Criar um Container MySQL no Volume Docker:** 
-
+### **Criar um Container MySQL no Volume Docker:** 
+````
 - docker run -d --name  __NOME DO CONTAINER MYSQL__ `
 - -e MYSQL_ROOT_PASSWORD=__SENHA DO MYSQL WORKBENCH__ `
 - -e MYSQL_DATABASE=__NOME DO BANCO MYSQL DOCKER__ `
@@ -19,6 +19,7 @@ Criação de Volume com banco de dados MySQL.
 - -v __NOME DO VOLUME__:/var/lib/mysql `
 - -p 3307:3306 `
 - mysql:8.0
+````
 
 O que cada parte faz:
 
@@ -40,7 +41,7 @@ O que cada parte faz:
         - Mapeamento das portas (host:container): permite que uma porta do host “apontar” para uma porta específica do container.
 
 Exemplo:
-
+````
 docker run -d `
 --name container_mysql_aula_05 `
 -e MYSQL_ROOT_PASSWORD=Enigma.2 `
@@ -50,94 +51,104 @@ docker run -d `
 -v volume_mysql_aula_05:/var/lib/mysql `
 -p 3307:3306 `
 mysql:8.0
+````
 
 **Verificar o Volume:**
-- docker volume ls
-- docker volume inspect volume_mysql_aula_05
-
+````
+docker volume ls
+docker volume inspect volume_mysql_aula_05
+````
 -----------------------------------------------------------------------------------------------------------
 
-**ATIVAR CONTAINER MYSQL**
 
+### **Ativar o Container MySQL:**
+````
 docker start container_mysql_aula_05
-
+````
 ![alt text](DOCKER.png)
 
-**DADOS CONTAINER MYSQL**
+**Dados do Container MySQL**
 
-- docker run -d `
-- --name container_mysql_aula_05 `
-- -e MYSQL_ROOT_PASSWORD=Enigma.2 `
-- -e MYSQL_DATABASE=banco_docker `
-- -e MYSQL_USER=decio `
-- -e MYSQL_PASSWORD=decio123 `
-- -v volume_mysql_aula_05:/var/lib/mysql `
-- -p 3307:3306 `
-- mysql:8.0
-
+````
+docker run -d `
+--name container_mysql_aula_05 `
+-e MYSQL_ROOT_PASSWORD=Enigma.2 `
+-e MYSQL_DATABASE=banco_docker `
+-e MYSQL_USER=decio `
+-e MYSQL_PASSWORD=decio123 `
+-v volume_mysql_aula_05:/var/lib/mysql `
+-p 3307:3306 `
+mysql:8.0
+````
 ![alt text](<DADOS CONTAINER MYSQL.png>)
 
-**MYSQL WORKBENCH**
+**MySQL Workbench**
 
 ![alt text](WORKBENCH.png)
 
 -----------------------------------------------------------------------------------------------------------
 
-**Criar uma rede Docker:**
-- docker network create rede_banco_mysql_aula_05
-
+### **Criar uma rede Docker:**
+````
+docker network create rede_banco_mysql_aula_05
+````
 **Conectar container MySQL na rede criada:**
-- docker network connect rede_banco_mysql_aula_05 container_mysql_aula_05
-
+````
+docker network connect rede_banco_mysql_aula_05 container_mysql_aula_05
+````
 **Identificar conexão da rede ao container:**
-- docker network inspect rede_banco_mysql_aula_05 (procurar por container)
-- docker inspect container_mysql_aula_05 (procurar por rede)
-
-- Comandos para rede:
-    - docker network create __NOME DA REDE CONEXÃO__ → (__criar rede de conexão Docker__)
-    - docker network ls → (__visualizar lista rede__)
-    - docker network inspect __NOME DA REDE CONEXÃO__ → (__inspecionar rede__)
-    - docker network disconnect __NOME DA REDE CONEXÃO__ __NOME DA IMAGEM__ → (__desconectar rede do container__)
-    - docker network connect __NOME DA REDE CONEXÃO__ __NOME DA IMAGEM__ → (__conectar rede do container__)
-    - docker network rm __NOME DA REDE CONEXÃO__ → (__excluir container rede__)
-
+````
+docker network inspect rede_banco_mysql_aula_05     → Procurar por container
+docker inspect container_mysql_aula_05      → Procurar por rede
+````
+**Comandos para rede:**
+````
+docker network create __NOME DA REDE CONEXÃO__  → Criar rede de conexão Docker
+docker network ls   → Visualizar lista rede
+docker network inspect __NOME DA REDE CONEXÃO__     →  Inspecionar rede
+docker network disconnect __NOME DA REDE CONEXÃO__ __NOME DA IMAGEM__   →  Desconectar rede do container
+docker network connect __NOME DA REDE CONEXÃO__ __NOME DA IMAGEM__ → Conectar rede do container
+docker network rm __NOME DA REDE CONEXÃO__      →  Excluir container rede
+````
 -----------------------------------------------------------------------------------------------------------
 
-**Criar container para rede de conexão MySQL:**
+### **Criar container para rede de conexão MySQL:**
 
-cd C:\REPOSITORIO\Aula_Docker\Aula_05
+- cd C:\REPOSITORIO\Aula_Docker\Aula_05
 
-Criar o programa Python (__app.py__)
+**Criar o programa Python (__app.py__)**
 - No arquivo Python é definido nome do banco de dados e a execução da linha de código
 
-Criar o Dockerfile
+**Criar o Dockerfile**
 - (Imagem) instala pacotes de acesso ao MySQL
 
-Criar arquivo requirements.txt
+**Criar arquivo requirements.txt**
 - (Imagem) instala todas as dependências para rodar o container 
 
 **Construir a imagem do Python:**
-
-docker build -t imagem_conexao_mysql_aula_05 . (__criar container__)
-
+````
+docker build -t imagem_conexao_mysql_aula_05 .      →   Criar container
+````
 **Rodar o container Python:**
-
+````
 docker run -d `
 --name container_conexao_mysql_aula_05 `
 --network rede_banco_mysql_aula_05 `
 imagem_conexao_mysql_aula_05
+````
 
-Definições:
-docker run → cria e executa um novo container.
--d → o container não executa de imediato.
---name container_conexao_mysql_aula_05 → dá um nome específico ao container. Sem isso, o Docker gera um nome aleatório.
---network rede_banco_mysql_aula_05 → conecta o container a uma rede Docker específica.
-imagem_conexao_mysql_aula_05 → indica a imagem que será usada para criar o container.
+- Definições:
+    - docker run → Cria e executa um novo container.
+    - -d → O container não executa de imediato.
+    - --name container_conexao_mysql_aula_05 → Dá um nome específico ao container. Sem isso, o Docker gera um nome aleatório.
+    - --network rede_banco_mysql_aula_05 → Conecta o container a uma rede Docker específica.
+    - imagem_conexao_mysql_aula_05 → Indica a imagem que será usada para criar o container.
 
-__LISTAR CONTAINER__
-
+**Listar containers:**
+````
 docker ps -a
-
-__RODAR CONTAINER__
-
+````
+**Rodar o container:**
+````
 docker start -ia container_conexao_mysql_aula_05
+````

@@ -1,25 +1,29 @@
 ### Aula_04
 ### Volumes SQLite
 
+
 **Criados Volume Docker:**
-- docker volume create __NOME DO VOLUME__
-- docker volume create volume_sqlite_aula_04
+````
+docker volume create __NOME DO VOLUME__
+docker volume create volume_sqlite_aula_04
+````
 
 - Apos criar o Volume: volume_sqlite_aula_04
     - No Windows com Docker Desktop, o Docker roda por baixo de um máquina Linux virtual (WSL2).
-    - Então os volumes não ficam em C:..., mas sim dentro dessa Máquina Virtual Linux.
+    - Então os volumes não ficam em drive C:..., mas sim dentro dessa Máquina Virtual Linux.
     - Ou seja, você não acessa direto pelo Explorer, só através de comandos Docker.
 
-Ver lista de comandos do Volumes:
-- docker volume __COMANDOS__
-    - create      Criar
-    - inspect     Exibir informações do Volume
-    - ls          Listar volumes
-    - prune       Para execução de Volumes
-    - rm __ID__   Remove volumes
+**Ver lista de comandos do Volumes:**
+````
+docker volume create      →  Criar
+docker volume inspect     →  Exibir informações do Volume
+docker volume ls          →  Listar volumes
+docker volume prune       →  Para execução de Volumes
+docker volume rm __ID__   →  Remove volumes
+````
+### Docker Desktop
+<br>
 
-Docker Desktop
-<br><br>
 ![Imagem do Docker](meu_volume1.png)
 
 <br>
@@ -29,21 +33,26 @@ Docker Desktop
 **Criação de Container:**
 - cd C:\REPOSITORIO\Aula_Docker\Aula_04
 
-- Criar o programa Python (__app.py__)
+- Criar o programa Python → (__app.py__)
     - No arquivo Python é definido nome do banco de dados e a execução da linha de código
 
 - Criar o Dockerfile
     - (Imagem) instala pacotes de acesso ao SQLlite
     
-- Com o Docker Desktop aberto
+<br>
 
-- docker build -t imagem_sqlite_aula_04 .   (__Criar imagem__)
+**Com o Docker Desktop aberto:**
+````
+docker build -t imagem_sqlite_aula_04 .   →  Criar imagem
+````
 
 **Acesso do container ao volume:**
+````
 docker run -it `
 --name container_sqlite_aula_04 `
 -v volume_sqlite_aula_04:/app/data ` 
 imagem_sqlite_aula_04
+````
 
 - Definições:
     - docker run → executar imagem
@@ -60,63 +69,88 @@ imagem_sqlite_aula_04
 -----------------------------------------------------------------------------------------------------------------------------------
 
 **Acessar container:**
-- docker start -ai __NOME DO VOLUME__
-- docker start -ai container_sqlite_aula_04
+````
+docker start -ai __NOME DO VOLUME__
+docker start -ai container_sqlite_aula_04
+````
 
 **Acessar Volume por meio de terminal bash POR UM NOVO CONTAINER:**
+````
 docker run -it `
 --name container_sqlite_bash_aula_04 `
 -v volume_sqlite_aula_04:/app/data `
 imagem_sqlite_aula_04 `
 bash
+````
 
 **Acesso ao novo container:**
-- docker start -ai container_sqlite_bash_aula_04
-
+````
+docker start -ai container_sqlite_bash_aula_04
+````
 **Para sair do terminal bash:**
-- Ctrl+d
-- exit
----
+````
+Ctrl+d
+exit
+````
 
 -----------------------------------------------------------------------------
+
 **Instalar SQLite dentro do container Python caso necessário:**
 - No terminal bash:
-- apt update
-- apt install -y sqlite3
+````
+apt update
+apt install -y sqlite3
+````
 -----------------------------------------------------------------------------
 
 **Criar ou selecionar um banco SQLite dentro do volume:**
 - No terminal bash:
-- sqlite3 /app/data/__NOME DO BANCO SQLITE__
-
-Exemplo:
-- sqlite3 /app/data/meubanco.db
+````
+sqlite3 /app/data/__NOME DO BANCO SQLITE__
+sqlite3 /app/data/meubanco.db
+````
 
 **No terminal SQLlite:**
-sqlite> __COMANDO__
-.tables                 -- lista todas as tabelas do banco
-.schema clientes        -- mostra a estrutura da tabela 'clientes' (se existir)
-SELECT * FROM clientes; -- exibe os dados da tabela 'clientes'
-.exit                   -- sai do SQLite e volta ao bash
+````
+sqlite> .tables                     →  Lista todas as tabelas do banco
+sqlite> .schema clientes            →  Mostra a estrutura da tabela 'clientes' (se existir)
+sqlite> SELECT * FROM clientes;     →  Exibe os dados da tabela 'clientes'
+sqlite> .exit                       →  Sai do SQLite e volta ao bash
+````
 -----------------------------------------------------------------------------
+<br>
 
-- docker start -ai container_sqlite_bash_aula_04 (__Abrir container bash__)
+### Docker Desktop
+````
+docker start -ai container_sqlite_bash_aula_04      →  Abrir container bash
+````
 - Terminal bash:
-    - ls /app/data (__Listar bancos__)
-    - sqlite3 /app/data/novo_banco.db (__Acessar ou criar novo banco__)
+
+````
+ls /app/data    →  Listar bancos
+sqlite3 /app/data/novo_banco.db     → Acessar ou criar novo banco
+````
+
 - Terminal sqlite:
-    - .tables (__Listar tabela__)
-    - CREATE TABLE pessoa (
+````
+sqlite> .tables Listar tabela     → Listar tabela
+
+sqlite> CREATE TABLE pessoa (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT
-    );
-    - .tables (__Listar tabela__)
-    - .schema pessoa (__Mostra a estrutura da tabela__)
-    - INSERT INTO pessoa (nome) VALUES ('Decio Santana de Aguiar'); (__Inserir dados na tabela__)
-    - SELECT * FROM pessoa; (__Exibir dados na tabela__)
-    - .exit (__Sair terminal SQLite__)
+        );
+
+sqlite> .tables         → Listar tabela
+sqlite> .schema pessoa      → Mostra a estrutura da tabela
+sqlite> INSERT INTO pessoa (nome) VALUES ('Decio Santana de Aguiar');   → Inserir dados na tabela
+sqlite> SELECT * FROM pessoa;       → Exibir dados na tabela
+sqlite> .exit       → Sair terminal SQLite
+````
+
 - Terminal bash:
-    - ls /app/data (__Listar bancos__)
-    - rm /app/data/novo_banco.db (__Excluir tabela__)
-    - ls /app/data (__Listar bancos__)
-    - exit (__Sair terminal bash__)
+````
+ls /app/data                →   Listar bancos
+rm /app/data/novo_banco.db  →   Excluir tabela
+ls /app/data                →   Listar bancos
+exit                        →   Sair terminal bash
+````
