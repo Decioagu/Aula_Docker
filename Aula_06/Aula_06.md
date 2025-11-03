@@ -72,9 +72,11 @@ apt-get install telnet  → Instalar telnet
 - Definição:
   - OBS: A imagem oficial mysql:8.0 é baseada em Oracle Linux, que não usa apt (Debian/Ubuntu), mas sim dnf ou microdnf (RedHat/Fedora/Oracle Linux). Por isso apt-get e apt não existem.
 
-- microdnf install -y procps iputils telnet
-  - Definição:
-    - No caso desta imagem (mysql:8.0 atual), ela usa Oracle Linux → então o correto é usar microdnf, apt nunca vai estar disponível.
+````
+microdnf install -y procps iputils telnet
+````
+- Definição:
+  - No caso desta imagem (mysql:8.0 atual), ela usa Oracle Linux → então o correto é usar microdnf, apt nunca vai estar disponível.
 
 __CONEXÃO TCP COM OUTRA REDE__
 
@@ -99,10 +101,10 @@ Enter password: dsa
 __MySQL__
 - **Terminal mysql:**
 ````
-SHOW DATABASES;   → Ver bancos
+SHOW DATABASES;     → Ver bancos
 USE banco_docker;   → Acessar Banco
-SHOW TABLES; ()   → Ver bancos
-exit;   → Sair terminal MySQL
+SHOW TABLES;        → Ver bancos
+exit;               → Sair terminal MySQL
 ````
 __SAIR DO TERMINAL BASH__
 - **No bash (Terminal):**

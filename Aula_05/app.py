@@ -4,9 +4,8 @@ import mysql.connector
 config = {
     'user': 'decio',
     'password': 'decio123',
-    'host': 'container_mysql_aula_05',  # nome do container: __NOME DO CONTAINER MYSQL__
     'database': 'banco_docker',
-    'port': 3306
+    'port': 3307
 }
 
 try:

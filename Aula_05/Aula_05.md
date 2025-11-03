@@ -80,6 +80,8 @@ docker run -d `
 -p 3307:3306 `
 mysql:8.0
 ````
+### **Criar banco de dados no MySQL Workbench**
+
 ![alt text](<DADOS CONTAINER MYSQL.png>)
 
 **MySQL Workbench**
@@ -148,7 +150,44 @@ imagem_conexao_mysql_aula_05
 ````
 docker ps -a
 ````
+
 **Rodar o container:**
 ````
-docker start -ia container_conexao_mysql_aula_05
+docker exec -it container_mysql_aula_05 bash
+````
+
+
+**Instalação de pacotes para acesso ao MySQL:**
+- **No bash (Terminal):**
+````
+microdnf install -y procps iputils telnet
+````
+
+**Conexão TCP com outra rede:**
+````
+mysql -h container_mysql_aula_05 -u decio -p
+Enter password: decio123
+````
+
+**Acessar o terminal MySQL**
+- **Terminal mysql:**
+````
+SHOW DATABASES;     → Ver bancos
+
+CREATE TABLE pessoa (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+INSERT INTO pessoa (nome) VALUES ('João Silva'), ('Maria Oliveira'); → Inserir dados
+SELECT * FROM pessoa; → Exibir dados
+SHOW DATABASES;     → Ver bancos
+USE banco_docker;   → Acessar Banco
+SHOW TABLES;        → Ver bancos
+exit;               → Sair terminal MySQL
+````
+**Sair do terminal bash**
+- **No bash (Terminal):**
+````
+exit
 ````
