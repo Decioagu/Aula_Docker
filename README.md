@@ -63,7 +63,7 @@ See "man sudo_root" for details.
 ### Passo 4 - Testar se está funcionando
 ````
 docker --version
-docker run hello-world (__Criar container a partir da imagem padão já existente no Docker__)
+docker run hello-world  →  Criar container a partir da imagem padão já existente no Docker
 ````
 ---
 ---
