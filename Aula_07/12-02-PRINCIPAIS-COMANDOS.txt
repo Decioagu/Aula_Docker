@@ -1,0 +1,7 @@
+docker run -d --name webserver01 nginx:latest
+docker ps
+docker inspect webserver01
+docker network ls
+telnet 172.17.0.2 80
+curl -Is http://172.17.0.2 | head -n 1
+curl http://172.17.0.2:80

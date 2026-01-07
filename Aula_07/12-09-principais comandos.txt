@@ -1,0 +1,19 @@
+docker network create -d macvlan --subnet=192.168.1.0/24 --gateway 192.168.1.1 -o parent=enp0s3 macvlan-net1
+docker network ls
+docker run -itd --name macvlan1 --network macvlan-net1 alpine:latest
+docker ps
+docker inspect macvlan1
+docker run -itd --name macvlan2 --network macvlan-net1 alpine:latest
+docker inspect macvlan2
+docker inspect macvlan1
+docker exec -it macvlan1 /bin/sh
+docker ps -a
+docker stop docker-none
+docker stop docker-host
+docker stop server-host
+docker stop macvlan1
+docker stop macvlan2
+#Cuidado com o comando abaixo...
+#docker system prune -fa
+docker ps -a
+docker images

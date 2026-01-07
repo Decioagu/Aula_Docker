@@ -1,0 +1,32 @@
+#RESUMO DAS ATIVIDADES
+#Precisamos de 2 servidores
+#Então foi feito um clone resetando os MACs das placas de rede
+#Identificamos os IPs
+#Determinamos que teriam os seguinte nomes e IPs
+192.168.1.4 - dockersrv01
+192.168.1.7 - dockersrv02
+
+#Precisamos alterar os hostnames
+#conectamos no servidor que terá o nome dockersrv01 e fizemos
+sudo hostname dockersrv01
+sudo vi /etc/hosts
+#comentamos a entrada de loopback.
+#127.0.1.1 dockersrv
+#Inserimos uma entrada para o IP que sera usado para comunicação
+#entre os servidores
+192.168.1.4 dockersrv01
+192.168.1.7 dockersrv02
+
+#conectamos no servidor que terá o nome dockersrv02 e fizemos
+sudo hostname dockersrv02
+
+#comentamos a entrada de loopback colocando um sinal de #
+#127.0.1.1 dockersrv
+#Inserimos uma entrada para o IP que sera usado para comunicação
+#entre os servidores
+sudo vi /etc/hosts
+192.168.1.4 dockersrv01
+192.168.1.7 dockersrv02
+
+
+

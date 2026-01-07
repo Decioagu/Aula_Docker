@@ -1,0 +1,16 @@
+#Principais comandos executados
+docker run -itd --network dnsdocker --network-alias srvlnx03 --name srvlnx03 alpine:latest
+docker ps
+docker run -itd --network dnsdocker --network-alias srvlnx04 --name srvlnx04 alpine:latest
+docker inspect srvlnx03
+docker inspect srvlnx04
+docker exec -it srvlnx03 /bin/sh
+docker exec -it srvlnx04 /bin/sh
+docker stop srvlnx01
+docker stop srvlnx02
+docker stop srvlnx03
+docker stop srvlnx04
+
+#MUITO CUIDADO COM O PROXIMO COMANDO
+#ELE VAI DELETAR TUDO...
+docker system prune -fa

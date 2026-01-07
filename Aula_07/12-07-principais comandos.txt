@@ -1,0 +1,14 @@
+docker network inspect bridge
+docker inspect none
+docker network inspect host
+clear
+docker run -itd --network none --name docker-none alpine:latest
+docker ps
+docker inspect docker-none
+docker exec -it docker-none /bin/sh
+docker run -itd --network host --name docker-host alpine:latest
+docker inspect docker-host
+docker exec -it docker-host /bin/sh
+docker run -itd --network host --name server-host nginx:latest
+docker ps
+curl http://localhost:80

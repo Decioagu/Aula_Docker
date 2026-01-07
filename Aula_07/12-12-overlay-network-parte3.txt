@@ -1,0 +1,29 @@
+#Principais Comandos
+#O comando a seguir deu start no swarm manager publicando seu IP principal
+docker swarm init --advertise-addr 192.168.1.4
+
+#O comando gera outro comando com uma chave para ser executada no segundo node
+#Desde que os servidores se comuniquem você não tera problemas
+
+
+#Execute o comando gerado no servidor 2 com o token gerado pelo swarm
+#Conecte no servidor 2 e execute o comando
+#O comando abaixo é exclusivamente para o meu ambiente
+#No seu, o token e os ips vão ser diferentes
+#Por isso copie do seu ambiente.
+docker swarm join --token SWMTKN-1-19jdg73ae70fk1p4azbl6i8x1ylkeq40dztsmgifuv19wcilb1-9b9owge8t2s3lojn30cjkme1z 192.168.1.4:2377
+
+#Verifique o papel de cada node no swarm
+#Deve existir um manager e um worker
+docker info
+
+#Crie rede de overlay
+docker network create overlaynet1 --driver overlay --subnet 172.27.0.0/16 --gateway 172.27.0.1
+docker network ls
+
+#Crie os serviços de container
+docker service create -t --replicas 1 --network overlaynet1 --name alpine-overlay1 alpine:latest
+docker service create -t --replicas 1 --network overlaynet1 --name alpine-overlay2 alpine:latest
+docker ps
+clear
+

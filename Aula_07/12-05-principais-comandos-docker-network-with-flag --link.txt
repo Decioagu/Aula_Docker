@@ -1,0 +1,8 @@
+#principais comandos
+docker run -itd --name srvlnx01 apine:latest
+docker run -itd --name srvlnx01 alpine:latest
+docker run -itd --name srvlnx02 --link srvlnx01 alpine:latest
+docker ps
+clear
+docker exec -it srvlnx02 /bin/sh
+docker exec -it srvlnx01 /bin/sh

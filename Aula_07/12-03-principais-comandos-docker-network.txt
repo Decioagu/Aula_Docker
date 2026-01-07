@@ -1,0 +1,7 @@
+docker run -d -p 8080:80 --name webserver02 nginx:latest
+docker inspect webserver02
+docker network ls
+docker exec -it webserver01 /bin/bash
+apt-get update && apt-get install -y inetutils-ping
+ping 172.17.0.3
+curl 172.17.0.3
